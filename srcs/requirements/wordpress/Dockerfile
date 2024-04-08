@@ -26,10 +26,6 @@ RUN chmod 777 /tmp/launchWordpress.sh
 
 EXPOSE 9000
 
-RUN apt-get install dumb-init -y
-
 RUN mkdir -p /run/php
-
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 CMD ["/tmp/launchWordpress.sh"]
