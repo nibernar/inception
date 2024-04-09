@@ -41,6 +41,13 @@ services:
   wordpress:
     build:
       context: ./requirements/wordpress
+      args:
+        HOST: ${HOST}
+        TITLE: ${TITLE}
+        WP_DOMAIN: ${WP_DOMAIN}
+        WP_ADMIN: ${WP_ADMIN}
+        WP_ADMIN_PW: ${WP_ADMIN_PW}
+        WP_ADMIN_MAIL: ${WP_ADMIN_MAIL}
       dockerfile: Dockerfile
       args:
         DB_DATABASE: ${DB_DATABASE}
