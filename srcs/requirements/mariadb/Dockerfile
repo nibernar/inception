@@ -21,10 +21,4 @@ RUN service mariadb start && mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${D
 
 COPY ./conf/mariadb.conf ./etc/mysql/mariadb.conf.d/50-serveur.conf
 
-EXPOSE 3306
-
-RUN apt-get install dumb-init -y
-
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-
 CMD ["mariadbd", "--bind-address=0.0.0.0"]

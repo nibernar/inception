@@ -35,11 +35,25 @@ services:
     networks:
       - inception
     restart: always
+    expose:
+      - 3306
 
   wordpress:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
+      args:
+        DB_DATABASE: ${DB_DATABASE}
+        DB_USER: ${DB_USER}
+        DB_USER_PASSWORD: ${DB_USER_PASSWORD}
+        HOST: ${HOST}
+        WP_DOMAIN: ${WP_DONAIN}
+        TITLE: ${TITLE}
+        WP_ADMIN: ${WP_ADMIN}
+        DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+        WP_ADMIN_MAIL: ${WP_ADMIN_MAIL}
+        USER_BIS: ${USER_BIS}
+        USER_BIS_MAIL: ${USER_BIS_MAIL}
     container_name: wordpress
     image: wordpress
     env_file:
@@ -51,6 +65,8 @@ services:
     depends_on:
       - mariadb
     restart: always
+    expose:
+      - 9000
 
 networks:
   inception:
@@ -63,7 +79,7 @@ volumes:
     name: wordpress
     driver_opts:
       type: 'none'
-      device: /home/nibernar/Bureau/data/wordpress
+      device: '/home/nibernar/data/wordpress'
       o: 'bind'
 
   mariadb:
@@ -71,5 +87,5 @@ volumes:
     name: mariadb
     driver_opts:
       type: 'none'
-      device: /home/nibernar/Bureau/data/mariadb
+      device: '/home/nibernar/data/mariadb'
       o: 'bind'

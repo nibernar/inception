@@ -16,5 +16,5 @@ then
 
     #chown www-data:www-data /var/www/html/wordpress/wp-content/uploads -R
 fi
-# mkdir -p /run/php/
+mkdir -p /run/php/
 php-fpm7.4 -F
