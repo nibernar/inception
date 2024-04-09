@@ -34,13 +34,9 @@ RUN service mariadb start && mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${D
 # Envoi le ficher de configuration mariadb.conf au répertoire de configuration de MariaDB.
 COPY ./conf/mariadb.conf ./etc/mysql/mariadb.conf.d/50-serveur.conf
 
-<<<<<<< HEAD
-CMD ["mariadbd", "--bind-address=0.0.0.0"]
-=======
 # Permet aux autres conteneurs ou à des applications externes de se connecter à MariaDB via ce port.
 EXPOSE 3306
 
 # Définit la commande par défaut à exécuter lorsque le conteneur démarre.
 # "--bind-address=0.0.0.0" : écoute les connexions entrantes sur tout le réseau de la machine hôte (VM).
 CMD ["mariadbd", "--bind-address=0.0.0.0"]
->>>>>>> dea6fc01075f3166d4e7d27ea06af46c1f125839
