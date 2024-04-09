@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+# scropte shell aui telecharge, configure et unstalle automatiquement wordpress puis demarre le serveur wordpress.
+
 sleep 10;
 
 file="/var/www/html/wordpress/wp-config.php"

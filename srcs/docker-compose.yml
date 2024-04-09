@@ -1,23 +1,35 @@
+
+# Version et syntaxe du docker compose
 version: '3.7'
 
+# Définie les différents services du docker compose
 services:
   nginx:
+    # indique le répertoire et le nom du docker a build
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
+    # indique l'image de nginx a utiliser
     image: nginx
+    # Définie le nom du docker qui sera créer
     container_name: nginx
+    # Créer une communication entre le docker ngin et la vm, sur le port 443
     ports:
       - 443:443
+    # Créer un volume dans le docker de nginx
     volumes: 
       - wordpress:/var/www/html/wordpress
+    # connecte le docker nginx au réseau inception
     networks:
       - inception
+    # spécifie que le docker nginx attend que le docker wordpress soit démarré.
     depends_on: 
       - wordpress
+    # redémarre le docker en cas d'échec ou d'arrêt.
     restart: always
 
   mariadb:
+    # indique le répertoire et le nom du docker a build puis transmet les args de construction du docker mariadb
     build:
       context: ./requirements/mariadb
       args:
@@ -35,6 +47,7 @@ services:
     networks:
       - inception
     restart: always
+    # Créer une communication entre le docker mariadb et les container du meme reseau inception
     expose:
       - 3306
 
@@ -42,25 +55,19 @@ services:
     build:
       context: ./requirements/wordpress
       args:
-        HOST: ${HOST}
-        TITLE: ${TITLE}
-        WP_DOMAIN: ${WP_DOMAIN}
-        WP_ADMIN: ${WP_ADMIN}
-        WP_ADMIN_PW: ${WP_ADMIN_PW}
-        WP_ADMIN_MAIL: ${WP_ADMIN_MAIL}
-      dockerfile: Dockerfile
-      args:
         DB_DATABASE: ${DB_DATABASE}
         DB_USER: ${DB_USER}
         DB_USER_PASSWORD: ${DB_USER_PASSWORD}
-        HOST: ${HOST}
-        WP_DOMAIN: ${WP_DONAIN}
-        TITLE: ${TITLE}
-        WP_ADMIN: ${WP_ADMIN}
         DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+        HOST: ${HOST}
+        TITLE: ${TITLE}
+        WP_DOMAIN: ${WP_DONAIN}
+        WP_ADMIN: ${WP_ADMIN}
+        WP_ADMIN_PW: ${WP_ADMIN_PW}
         WP_ADMIN_MAIL: ${WP_ADMIN_MAIL}
         USER_BIS: ${USER_BIS}
         USER_BIS_MAIL: ${USER_BIS_MAIL}
+      dockerfile: Dockerfile
     container_name: wordpress
     image: wordpress
     env_file:
@@ -75,11 +82,13 @@ services:
     expose:
       - 9000
 
+# permet de connecter les différents services entre eux dans le réseau inception
 networks:
   inception:
     driver: bridge
     name: inception
 
+# créer des volumes ou sera stocker les données pour avoir une persistance des données quand on stop les dockes
 volumes:
   wordpress:
     driver: local
@@ -88,7 +97,6 @@ volumes:
       type: 'none'
       device: '/home/nibernar/data/wordpress'
       o: 'bind'
-
   mariadb:
     driver: local
     name: mariadb

@@ -1,0 +1,21 @@
+commandes de docker
+
+- docker build . -t <<nom_du_docker>> : build un container docker <<nom_du_docker>>
+- systemctl status docker : affiche les docker en cours d'execution
+- docker stop <<nom_du_docker>> : stop le docker <<nom_du_docker>>
+- docker stop $(doker ps -qa): stop tout les docker
+- docker run -it <<nom_du_docker>> bash : lance le docker <<nom_du_docker>> puis ouvre un terminal bash pour rentrer dans le docker
+- docker exec -it <<nom_du_docker>> bash : ouvre un terminal bash pour rentrer dans le docker <<nom_du_docker>>
+- docker ps : affiche les container en cour d'execution
+- docker system prune -f --all : supprime les ressources inutiliseer des dockers
+
+commandes mysql
+
+- avant de pouvoir executer des commandes mysql, il faut rentrer dans le docker de mariadb
+avec la cmd 'docker exec -it <<nom_du_docker>> bash'
+- mysql -u <<nom_du_user_database>> -p; : connexion a la base de donneer <<nom_du_user_database>> avec le mdp <<mdp_user_database>>
+- SHOW DATABESES; : affiche les bases de donnees de <<nom_du_user_database>>
+- USE <<nom_database>> : selectionne une base de donnees
+- SHOW TABLES; : affiches les tables de <<nom_database>>
+- DESCRIBE <<nom_table>>; : affiche la structure d'une tables
+- SELECT * FROM <<nom_table>>; : affiches toutes les colonnes de toutes les lignes
